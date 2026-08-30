@@ -72,9 +72,18 @@ function faviconTag(value) {
 
 export default async (request) => {
   const ua = request.headers.get("user-agent") ?? "";
-  const path = new URL(request.url).pathname;
+  let path = new URL(request.url).pathname;
 
-  const isCrawler = BOTS.some((bot) => ua.includes(bot));
+  // /m/ prefix forces metadata mode for any user-agent — open the link in a
+  // normal browser to see exactly what crawlers get.
+  let isCrawler = BOTS.some((bot) => ua.includes(bot));
+  let debugMode = false;
+  if (path.startsWith("/m/")) {
+    path = path.slice(2);
+    isCrawler = true;
+    debugMode = true;
+  }
+
   if (path === "/" || !path.endsWith("/") || !isCrawler) return; // fall through to static site
 
   const info = pathToMetadata(path);
@@ -88,7 +97,9 @@ export default async (request) => {
 
   if (info.u) {
     tags.push(prop("og:url", info.u));
-    tags.push(`<meta http-equiv="refresh" content="0;url=${escapeHtml(info.u)}" />`);
+    // Skip the redirect in /m/ debug mode so a browser can inspect the tags
+    if (!debugMode)
+      tags.push(`<meta http-equiv="refresh" content="0;url=${escapeHtml(info.u)}" />`);
   }
   if (info.i) {
     // Relative images resolve against the forwarding URL
