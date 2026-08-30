@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- The <title> is the last-resort preview title on every platform -->
+  <title>Sales report for Q1 2025</title>
+  <meta name="description" content="Revenue up 12% vs Q4 2024" />
+
+  <!-- ============ Open Graph: the tags every platform reads ============ -->
+  <meta property="og:title" content="Sales report for Q1 2025" />
+  <meta property="og:description" content="Revenue up 12% vs Q4 2024" />
+  <meta property="og:site_name" content="Example" />
+  <!-- og:url should be the canonical URL of THIS page -->
+  <meta property="og:url" content="https://example.com/reports/q1-2025" />
+  <meta property="og:type" content="website" />
+
+  <!-- Absolute URL required. 1200×630 is the safe large-card size.
+       Width/height let the first-ever fetch lay out the card without
+       downloading the image. Keep the file well under ~600 KB for WhatsApp. -->
+  <meta property="og:image" content="https://example.com/chart.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Optional: inline-playable video on iMessage/Telegram/Discord.
+       Must be directly fetchable — no auth wall.
+  <meta property="og:video" content="https://example.com/demo.mp4" />
+  <meta property="og:video:type" content="video/mp4" />
+  <meta property="og:video:width" content="1280" />
+  <meta property="og:video:height" content="720" />
+  -->
+
+  <!-- ============ Twitter/X ============
+       Falls back to og:* for title/description/image; the card tag is the
+       one that matters — summary_large_image gets the full-width layout,
+       and Slack keys off it too. -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- ============ Icons: the small half of icon + thumbnail combos ============
+       iMessage (and WhatsApp) show this small icon alongside the large
+       og:image. Both rels, same asset, ≥180×180 PNG. -->
+  <link rel="icon" href="https://example.com/icon.png" />
+  <link rel="apple-touch-icon" href="https://example.com/icon.png" />
+
+  <!-- Discord embed accent color -->
+  <meta name="theme-color" content="#0a84ff" />
+
+  <!-- ============ iMessage social-post masquerade ============
+       iMessage hides og:description by default. og:type=article plus this
+       ActivityPub alternate link (href may be empty — presence is the
+       signal) switches iMessage to its social-post layout, which shows the
+       description and pairs the icon with the thumbnail. Other platforms
+       ignore both. On a static page you can't UA-branch, so either accept
+       article as your og:type or serve dynamically. See docs/imessage.md.
+  <meta property="og:type" content="article" />
+  <link rel="alternate" type="application/activity+json" href="" />
+  -->
+</head>
+<body>
+  <h1>Sales report for Q1 2025</h1>
+  <p>The page itself — crawlers never read past the head.</p>
+</body>
+</html>
