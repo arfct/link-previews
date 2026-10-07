@@ -6,6 +6,7 @@
 //
 // Keys: d description · i image (+iw/ih) · v video (+vw/vh) · u forward URL
 //       f favicon (URL or bare emoji) · s site name · y og:type · c theme color hex
+//       p post style: on for iMessage by default, p/0 off, p/1 on for everyone
 //
 // Pretty title/description encoding: '-' → space, '--' → '-', '---' → ' - '.
 // URL values: ':' prefix means https://; otherwise percent-encoded or base64.
@@ -17,6 +18,12 @@ const BOTS = [
   "Twitterbot", "facebookexternalhit", "Slackbot-LinkExpanding",
   "Discordbot", "WhatsApp", "TelegramBot", "Snapchat", "Googlebot", "curl",
 ];
+
+// Apple's preview fetcher claims Safari, AppleWebKit, Facebook, and Twitter at
+// once; no real Facebook or Twitter crawler claims Safari.
+const isIMessage = (ua) =>
+  ["safari", "applewebkit", "facebookexternalhit", "twitterbot"]
+    .every((s) => ua.toLowerCase().includes(s));
 
 const escapeHtml = (text) =>
   String(text)
@@ -91,7 +98,15 @@ export default async (request) => {
 
   if (info.t) tags.push(`<title>${escapeHtml(info.t)}</title>`, prop("og:title", info.t));
   if (info.s) tags.push(prop("og:site_name", info.s));
-  if (info.y) tags.push(prop("og:type", info.y));
+  // Post style makes iMessage show the description, and the icon beside the
+  // image. Without it an image hides the icon. See docs/imessage.md.
+  const post = info.p ? info.p !== "0" : isIMessage(ua);
+  if (post) {
+    tags.push(prop("og:type", "article"));
+    tags.push(`<link rel="alternate" type="application/activity+json" href="">`);
+  } else if (info.y) {
+    tags.push(prop("og:type", info.y));
+  }
   if (info.d) tags.push(prop("og:description", info.d), name("description", info.d));
   if (info.c) tags.push(name("theme-color", `#${info.c}`));
 

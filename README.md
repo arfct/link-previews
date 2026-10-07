@@ -41,7 +41,9 @@ renders a card from them. This means:
   <!-- Twitter/X: opt into the large-image card layout -->
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Icons: the small-icon half of icon + thumbnail combos -->
+  <!-- Icons: the small-icon half of icon + thumbnail combos.
+       iMessage hides it beside an image unless the page reads as a social
+       post; see docs/imessage.md -->
   <link rel="icon" href="https://example.com/icon.png" />
   <link rel="apple-touch-icon" href="https://example.com/icon.png" />
 
@@ -63,7 +65,7 @@ Rules that hold everywhere:
 
 | Doc | Covers |
 |---|---|
-| [docs/imessage.md](docs/imessage.md) | iMessage: detecting its crawler, **masquerading as a social post to unlock descriptions**, icon + thumbnail combos |
+| [docs/imessage.md](docs/imessage.md) | iMessage: detecting its crawler, its three layouts, **masquerading as a social post to show the description and the icon beside the image**, rendering previews without a phone |
 | [docs/crawlers.md](docs/crawlers.md) | Identifying every platform's crawler, per-platform rendering behavior, caching, analytics hygiene |
 | [docs/patterns.md](docs/patterns.md) | The three architectures: static tags, metadata-in-the-URL, stored-metadata share links; generating preview images |
 
@@ -78,7 +80,9 @@ Rules that hold everywhere:
 ## Testing previews
 
 - **iMessage** re-fetches when you paste a URL into the compose field — but caches per
-  conversation once sent. Test in a conversation with yourself.
+  conversation once sent. Test in a conversation with yourself, or skip the phone:
+  [tools/lp-render.swift](tools/lp-render.swift) renders the card on macOS with the same
+  framework Messages uses.
 - **Slack** caches per-workspace; re-share in a different channel won't refetch. Use
   `/collapse` + delete + repost, or tweak the URL with a query param.
 - Emulate crawlers with curl:
