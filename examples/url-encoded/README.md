@@ -23,6 +23,7 @@ https://example.app/{title}/{key}/{value}/…/
 | `s` | `og:site_name` |
 | `y` | `og:type` |
 | `c` | `theme-color` hex |
+| `p` | post style: on for iMessage by default; `0` turns it off, `1` turns it on for every crawler |
 
 Example:
 

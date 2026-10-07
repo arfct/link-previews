@@ -45,13 +45,17 @@ Notes:
 
 | | title | description | large image | small icon | video |
 |---|---|---|---|---|---|
-| iMessage (default) | ✅ | ❌ | ✅ | ✅ | ✅ |
-| iMessage (social-post mode) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| iMessage (default) | ✅ | ❌ | ✅ | only without an image | ✅ |
+| iMessage (social-post mode) | ✅ | ✅ (required) | ✅ | ✅ beside the image | ✅ |
 | Slack | ✅ | ✅ | ✅ (`twitter:card` large) | ✅ favicon | ▶ some |
 | Twitter/X | ✅ | ✅ | via `summary_large_image` | ❌ | player card |
 | Discord | ✅ | ✅ | ✅ | ❌ | ✅ |
 | WhatsApp | ✅ | ✅ | ✅ if under limits | ✅ | ❌ |
 | Telegram | ✅ | ✅ | ✅ | ❌ | ✅ |
+
+iMessage's two rows are layouts, not settings. It drops the icon whenever there's an
+image, unless the page reads as a social post and has a description. See
+[imessage.md](imessage.md#the-three-layouts).
 
 `twitter:card`:
 
