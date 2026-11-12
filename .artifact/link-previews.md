@@ -1,6 +1,7 @@
 ---
 title: link-previews
 date: 2026-08
+status: released
 category: infrastructure
 tags: [web]
 url: https://github.com/arfct/link-previews
@@ -10,7 +11,7 @@ media:
   - src: imessage-cards.png
     caption: One page rendered twice by the repository's Swift tool, in iMessage's default layout and, with the two post tags added, in its post layout
     alt: Two link preview cards side by side, each with a bar chart above the title Sales report for Q1 2025; the right card adds a line of description and a small blue icon beside the title
-unconfirmed: [date]
+unconfirmed: [date, status]
 ---
 
 iMessage asks for a link preview with a user agent that names Safari, Facebook's crawler and Twitter's crawler at once. link-previews sets down behaviour of this kind for the cards that iMessage, Slack, X, Discord, WhatsApp and Telegram build from a pasted URL, in three guides with working code. Its README gives one set of meta tags that all six read.
